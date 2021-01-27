@@ -916,25 +916,25 @@ static KVNProgressConfiguration *configuration;
 
 - (void)addToWindow
 {
-	
-	if (!self.progressWindow) {
-		self.originalKeyWindow = [UIApplication sharedApplication].keyWindow;
-		self.progressWindow = [[UIWindow alloc] initWithFrame:self.originalKeyWindow.frame];
-		
-		// That code makes the custom UIWindow handle the orientation changes.
-		// http://stackoverflow.com/a/27091111/2571566
-		self.progressWindow.rootViewController = [[KVNRotationViewController alloc] init];
-	}
-	
-	self.progressWindow.frame = self.originalKeyWindow.frame;
-	
-	// Since iOS 9.0 set the windowsLevel to UIWindowLevelStatusBar is not working anymore.
-	// This trick, place the progressWindow on the top.
-	UIWindow *lastWindow = [[[UIApplication sharedApplication] windows] lastObject];
-	self.progressWindow.windowLevel = lastWindow.windowLevel + 1;
-	
-	[self.progressWindow makeKeyAndVisible];
-	[self addToView:self.progressWindow];
+    if (!self.progressWindow) {
+        // save original Window only when creating a new one
+        self.originalKeyWindow = [UIApplication sharedApplication].keyWindow;
+        self.progressWindow = [[UIWindow alloc] initWithFrame:self.originalKeyWindow.frame];
+
+        // That code makes the custom UIWindow handle the orientation changes.
+        // http://stackoverflow.com/a/27091111/2571566
+        self.progressWindow.rootViewController = [[KVNRotationViewController alloc] init];
+    }
+
+    self.progressWindow.frame = self.originalKeyWindow.frame;
+
+    // Since iOS 9.0 set the windowsLevel to UIWindowLevelStatusBar is not working anymore.
+    // This trick, place the progressWindow on the top.
+    UIWindow *lastWindow = [[[UIApplication sharedApplication] windows] lastObject];
+    self.progressWindow.windowLevel = lastWindow.windowLevel + 1;
+
+    [self.progressWindow makeKeyAndVisible];
+    [self addToView:self.progressWindow];
 }
 
 - (void)addToView:(UIView *)superview
