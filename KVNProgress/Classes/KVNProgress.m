@@ -916,9 +916,9 @@ static KVNProgressConfiguration *configuration;
 
 - (void)addToWindow
 {
-	self.originalKeyWindow = [UIApplication sharedApplication].keyWindow;
 	
 	if (!self.progressWindow) {
+		self.originalKeyWindow = [UIApplication sharedApplication].keyWindow;
 		self.progressWindow = [[UIWindow alloc] initWithFrame:self.originalKeyWindow.frame];
 		
 		// That code makes the custom UIWindow handle the orientation changes.
